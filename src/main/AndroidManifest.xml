@@ -66,12 +66,14 @@
         </activity>
         <activity
             android:name=".IntroActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Translucent" />
         <activity
             android:name=".MyLocationsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".WidgetSettingsDialog"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Translucent" />
     </application>
 

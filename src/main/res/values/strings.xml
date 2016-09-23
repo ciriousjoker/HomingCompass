@@ -1,10 +1,11 @@
 <resources>
     <!-- Titles -->
     <string name="app_name" translatable="false">Homing Compass</string>
-    <string name="app_version" translatable="false">Version 2.1</string>
+    <string name="app_version" translatable="false">Version 2.3</string>
 
     <string name="title_activity_maps">Where do you live?</string>
     <string name="title_dialog_format">Unit system</string>
+    <string name="title_dialog_help">Help</string>
     <string name="title_my_locations">My Locations</string>
 
     <string name="menu_about" translatable="false">About</string>
@@ -74,8 +75,8 @@
     <string name="settings_switch_show_distance">Show distance</string>
     <string name="settings_switch_show_settings_button">Show settings button in the widget</string>
 
-    <string name="settings_switch_update_location_constantly">Updating your location constantly</string>
-    <string name="settings_switch_update_location_once">Request location only once</string>
+    <string name="settings_switch_update_location_constantly">Updating location constantly</string>
+    <string name="settings_switch_update_location_once">Updating location constantly</string>
     <string name="settings_switch_update_location_constantly_caption">Turn this off to save battery</string>
     <string-array name="settings_format_options">
         <item>Meter / Kilometer</item>
@@ -110,4 +111,16 @@
     <string name="notice_saved">Saved</string>
     <string name="notice_general_error">Something went wrong, sorry.</string>
     <string name="notice_no_name_set">Please enter a name</string>
+    <string name="notice_confirmation_delete_location">Are you sure that you want to delete this location?</string>
+    <string name="button_remove">Remove</string>
+
+    <!-- Info dialogs -->
+    <string-array name="settings_info_dialog">
+        <item>Here you can switch between all your locations.\n\nYou can set new locations by tapping on the little star in the upper-left corner of the map.</item>
+        <item>Here you can specify, how long the widget should keep on spinning.\n\nNotice that the longer you set this value, the longer it\'ll drain battery.</item>
+        <item>Here you can set if you want the distance to be displayed in the upper-left corner of the widget.</item>
+        <item>Here you can choose if you want to use the metric or the imperial system.</item>
+        <item>Here you can set if you want the little cog to be displayed in the upper-right corner of the widget.</item>
+        <item>OFF:\nThe location will be searched once at the beginning when you tap on the widget and not be updated as long as it\'s running.\n\nON:\nThe location will be retrieved for as long as the widget is running.\n\n\nNote that you should only turn this on if you are relatively close to your destination or you\'re constantly moving.</item>
+    </string-array>
 </resources>

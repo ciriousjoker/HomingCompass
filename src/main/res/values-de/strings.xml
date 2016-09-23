@@ -12,13 +12,13 @@
     <string name="notice_too_many_widget">Du hast insgesamt %1$s Widgets platziert.</string>
     <string name="settings_switch_show_distance">Entfernung anzeigen</string>
     <string name="settings_switch_show_settings_button">Zahnrad im Widget anzeigen</string>
-    <string name="settings_widget_update_duration">Zeitraum, in dem das Widget updatet</string>
+    <string name="settings_widget_update_duration">Funktionsdauer</string>
     <string name="title_activity_maps">Wo wohnst du?</string>
     <string name="title_dialog_format">Maßeinheit</string>
     <string name="about_feedback">Feedback / Fehler melden</string>
     <string name="settings_switch_update_location_constantly_caption">Deaktivieren, um Energie zu sparen</string>
-    <string name="settings_switch_update_location_constantly">Position konstant aktualisieren</string>
-    <string name="settings_switch_update_location_once">Position wird nur einmal gesucht</string>
+    <string name="settings_switch_update_location_constantly">Position aktualisieren</string>
+    <string name="settings_switch_update_location_once">Position aktualisieren</string>
     <string name="intro_step_1">Lege einen Ort fest</string>
     <string name="intro_step_2">Platzier das Widget</string>
     <string name="intro_step_3">Tippe auf das Widget</string>
@@ -26,7 +26,6 @@
     <string name="intro_button">Alles klar!</string>
     <string name="notice_gps_deactivated">Bitte aktiviere GPS, der Energiesparmodus ist dabei nicht ausreichend.</string>
     <string name="about_license_notice">Lizenziert unter der <a href="https://opensource.org/licenses/MIT">MIT Lizenz</a></string>
-
     <string-array name="settings_format_options">
         <item>Meter / Kilometer</item>
         <item>Fuß / Meilen</item>
@@ -40,4 +39,15 @@
     <string name="settings_item_which_location">Welchen Ort benutzen</string>
     <string name="my_locations_header_hint">Ort hinzufügen</string>
     <string name="my_locations_item_hint">Bitte einen Namen eingeben</string>
+    <string name="title_dialog_help">Hilfe</string>
+    <string-array name="settings_info_dialog">
+        <item>Hier kannst Du zwischen deinen Orten wechseln.\n\nDu kannst neue Orte hinzufügen, indem Du auf den kleinen Stern oben links auf der Karte tippst.</item>
+        <item>Hier kannst Du einstellen, wie lange sich die Kompassnadel drehen soll.\n\nDenk daran, dass der Akku eventuell unnötig beansprucht wird, wenn Du diesen Wert zu hoch einstellst.</item>
+        <item>Hier kannst Du einstellen, ob Du die Distanz zum Ziel oben links im Widget angezeigt bekommen möchtest.</item>
+        <item>Hier kannst Du einstellen, ob Du lieber das Amerikanische oder das Metrische System verwenden möchtest.</item>
+        <item>Hier kannst Du einstellen, ob Du das Zahnrad oben rechts im Widget angezeigt bekommen möchtest.</item>
+        <item>AUS:\nDie GPS Position wird einmalig ermittelt, sobald Du auf das Widget tippst.\n\nAN:\nDie GPS Position wird angepasst, sobald Du dich bewegst.\n\n\nDu solltest diese Option nur aktivieren, wenn Du davon ausgehst, dass sich die Distanz innerhalb der 1 bis 10 Minuten ändert, weil Du zum Beispiel relativ nah am Ziel bist und dich bewegst, sonst wird der Akku unnötig beansprucht.</item>
+    </string-array>
+    <string name="notice_confirmation_delete_location">Sicher, dass Du diesen Ort löschen möchtest?</string>
+    <string name="button_remove">Entfernen</string>
 </resources>

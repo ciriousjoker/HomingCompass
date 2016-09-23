@@ -55,14 +55,11 @@ public class SettingsActivity extends AppCompatActivity {
 
     //static final String TAG = "SettingsActivity";
 
-    private MyAdapter adapter;
-    private ArrayList<MyLocationItem> arrayList;
-
     private SeekBar seekBar_WidgetDuration;
     private TextView textView_SeekBarDescription;
     private TextView textView_Format;
     private Switch switch_ShowDistance;
-    private LinearLayout textView_Format_Layout;
+    private LinearLayout linearLayout_Format;
     private Switch switch_ShowSettingsButton;
 
     private Switch switch_UpdateLocationConstantly;
@@ -212,22 +209,26 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setup_Button_UnitSystem() {
-        textView_Format = (TextView) textView_Format_Layout.getChildAt(1);
+        textView_Format = (TextView) findViewById(R.id.textView_FormatDescription);
         textView_Format.setText(getResources().getStringArray(R.array.settings_format_options)[prefs.getInt(getString(R.string.shared_pref_setting_format), 0)]);
-        textView_Format_Layout.setOnClickListener(new View.OnClickListener() {
+
+        LinearLayout linearLayout_Button_Format = (LinearLayout) findViewById(R.id.textView_Format);
+        linearLayout_Button_Format.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFormatDialog();
             }
         });
+
     }
 
     private void setup_Switch_ShowDistance() {
+        linearLayout_Format = (LinearLayout) findViewById(R.id.linearLayout_Format);
         switch_ShowDistance = (Switch) findViewById(R.id.switch_ShowDistance);
 
         switch_ShowDistance.setChecked(prefs.getBoolean(getString(R.string.shared_pref_setting_show_distance), false));
         if(!switch_ShowDistance.isChecked()){
-            textView_Format_Layout.setVisibility(View.GONE);
+            linearLayout_Format.setVisibility(View.GONE);
             View divider = findViewById(R.id.divider_after_unit_system);
             divider.setVisibility(View.GONE);
         }
@@ -237,10 +238,10 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 View divider = findViewById(R.id.divider_after_unit_system);
                 if(b){
-                    textView_Format_Layout.setVisibility(View.VISIBLE);
+                    linearLayout_Format.setVisibility(View.VISIBLE);
                     divider.setVisibility(View.VISIBLE);
                 } else {
-                    textView_Format_Layout.setVisibility(View.GONE);
+                    linearLayout_Format.setVisibility(View.GONE);
                     divider.setVisibility(View.GONE);
                 }
                 editor.putBoolean(getString(R.string.shared_pref_setting_show_distance), b);
@@ -259,7 +260,6 @@ public class SettingsActivity extends AppCompatActivity {
     private void setup_Slider_WidgetDuration() {
         textView_SeekBarDescription = (TextView) findViewById(R.id.textView_SeekBarDescription);
         seekBar_WidgetDuration = (SeekBar) findViewById(R.id.seekBar_widget_duration);
-        textView_Format_Layout = (LinearLayout) findViewById(R.id.textView_Format);
 
         int widgetUpdateDuration = prefs.getInt(getString(R.string.shared_pref_setting_widget_update_duration), 5);
 
@@ -452,5 +452,23 @@ public class SettingsActivity extends AppCompatActivity {
             arrayList_MyLocations.add(object.getName());
         }
         return arrayList_MyLocations.toArray(new CharSequence[arrayList_MyLocations.size()]);
+    }
+
+    public void showInfoDialog(View view) {
+        int messageId = Integer.valueOf((String) view.getTag());
+        String messageText = getResources().getStringArray(R.array.settings_info_dialog)[messageId];
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyAlertDialogTheme);
+        builder.setTitle(R.string.title_dialog_help);
+        builder.setMessage(messageText);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }

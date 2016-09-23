@@ -10,10 +10,11 @@
             @color/abc_primary_text_material_dark
         </item>
         <item name="android:textColor">@color/colorBlack87</item>
+        <item name="android:alertDialogTheme">@style/MyAlertDialogTheme</item>
     </style>
 
     <style name="AppTheme.Translucent" parent="AppTheme">
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:background">#00000000</item>
@@ -32,12 +33,26 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
+    <style name="MyAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/colorBlack87</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
         <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="InfoButton">
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:src">@drawable/ic_help_outline_black_24dp</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="DividerNoMargin">
@@ -55,6 +70,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:alertDialogTheme">@style/MyAlertDialogTheme</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -2,10 +2,12 @@ package com.ciriousjoker.homingcompass;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -34,6 +36,16 @@ public class MyLocationsActivity extends Activity {
     private ImageButton imageButton_Header_SaveLocation;
     private View.OnClickListener clickListener_Header;
     private View divider;
+    private AlertDialog alertDialog_Confirm_Delete;
+
+    @Override
+    protected void onPause() {
+        try {
+            alertDialog_Confirm_Delete.dismiss();
+        } catch (Exception ignored) {
+        }
+        super.onPause();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +115,25 @@ public class MyLocationsActivity extends Activity {
     }
 
     public void removeLocationItem(View v) {
-        MyLocationItem itemToRemove = (MyLocationItem) v.getTag();
-        adapter.remove(itemToRemove);
-        saveMyLocations();
+        final MyLocationItem itemToRemove = (MyLocationItem) v.getTag();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyAlertDialogTheme);
+        builder.setMessage(R.string.notice_confirmation_delete_location);
+        alertDialog_Confirm_Delete = builder.create();
+        alertDialog_Confirm_Delete.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.button_remove), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                adapter.remove(itemToRemove);
+                saveMyLocations();
+            }
+        });
+        alertDialog_Confirm_Delete.setButton(DialogInterface.BUTTON_NEGATIVE, getString(android.R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog_Confirm_Delete.show();
     }
 
     public void openLocationPicker(View v) {

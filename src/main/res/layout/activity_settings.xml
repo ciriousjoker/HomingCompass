@@ -50,29 +50,41 @@
                     tools:ignore="ContentDescription" />
             </android.support.v7.widget.CardView>
 
-
-
             <LinearLayout
-                android:id="@+id/textView_WhichLocation"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings_item_which_location"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-                <TextView
-                    android:id="@+id/textView_WhichLocation_Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorBlack54" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    style="@style/InfoButton"
+                    android:onClick="showInfoDialog"
+                    android:tag="0"
+                    tools:ignore="ContentDescription" />
+
+                <LinearLayout
+                    android:id="@+id/textView_WhichLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingStart="@dimen/activity_horizontal_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_item_which_location"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/textView_WhichLocation_Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorBlack54" />
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -81,148 +93,200 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings_widget_update_duration"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
+                <ImageButton
+                    style="@style/InfoButton"
+                    android:onClick="showInfoDialog"
+                    android:tag="1"
+                    tools:ignore="ContentDescription" />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="64dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
-                        android:id="@+id/textView_SeekBarDescription"
-                        android:layout_width="50dp"
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_widget_update_duration"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView_SeekBarDescription"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/colorBlack54" />
+
+                        <SeekBar
+                            android:id="@+id/seekBar_widget_duration"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="false"
+                            android:max="9"
+                            android:progress="5" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/Divider"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    style="@style/InfoButton"
+                    android:onClick="showInfoDialog"
+                    android:tag="2"
+                    tools:ignore="ContentDescription" />
+
+                <Switch
+                    android:id="@+id/switch_ShowDistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:checked="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:text="@string/settings_switch_show_distance"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+
+
+
+            <View style="@style/Divider"/>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout_Format"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    style="@style/InfoButton"
+                    android:onClick="showInfoDialog"
+                    android:tag="3"
+                    tools:ignore="ContentDescription" />
+                <LinearLayout
+                    android:id="@+id/textView_Format"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingStart="@dimen/activity_horizontal_margin">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_dialog_format"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <TextView
+                        android:id="@+id/textView_FormatDescription"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/colorBlack54" />
-
-                    <SeekBar
-                        android:id="@+id/seekBar_widget_duration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:indeterminate="false"
-                        android:max="9"
-                        android:progress="5" />
                 </LinearLayout>
             </LinearLayout>
-
-
-            <View style="@style/Divider"/>
-
-
-            <Switch
-                android:id="@+id/switch_ShowDistance"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="?attr/selectableItemBackground"
-                android:checked="true"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:text="@string/settings_switch_show_distance"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
-
-
-
-            <View style="@style/Divider"/>
-
-
-
-
-            <LinearLayout
-                android:id="@+id/textView_Format"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_dialog_format"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-                <TextView
-                    android:id="@+id/textView_FormatDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorBlack54" />
-            </LinearLayout>
-
 
             <View
                 android:id="@+id/divider_after_unit_system"
                 style="@style/Divider" />
 
-
-            <Switch
-                android:id="@+id/switch_ShowSettingsButton"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:text="@string/settings_switch_show_settings_button"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <View style="@style/Divider"/>
-
-
-            <FrameLayout
-                android:id="@+id/switch_UpdateLocationConstantly_Clickable"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:gravity="center_vertical"
-                android:paddingEnd="0dp"
-                android:paddingStart="@dimen/activity_horizontal_margin">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/textView_UpdateLocationConstantly"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/settings_switch_update_location_constantly"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/settings_switch_update_location_constantly_caption"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/colorBlack54" />
-                </LinearLayout>
-
+                <ImageButton
+                    style="@style/InfoButton"
+                    android:onClick="showInfoDialog"
+                    android:tag="4"
+                    tools:ignore="ContentDescription" />
                 <Switch
-                    android:id="@+id/switch_UpdateLocationConstantly"
+                    android:id="@+id/switch_ShowSettingsButton"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="64dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
-                    android:paddingEnd="@dimen/activity_horizontal_margin"
-                    android:paddingStart="0dp" />
-            </FrameLayout>
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:text="@string/settings_switch_show_settings_button"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    style="@style/InfoButton"
+                    android:onClick="showInfoDialog"
+                    android:tag="5"
+                    tools:ignore="ContentDescription" />
+
+                <FrameLayout
+                    android:id="@+id/switch_UpdateLocationConstantly_Clickable"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/activity_horizontal_margin">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView_UpdateLocationConstantly"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_switch_update_location_constantly"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_switch_update_location_constantly_caption"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/colorBlack54" />
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/switch_UpdateLocationConstantly"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="@dimen/activity_horizontal_margin"
+                        android:paddingStart="0dp" />
+                </FrameLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
