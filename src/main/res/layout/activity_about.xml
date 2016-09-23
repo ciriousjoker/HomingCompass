@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    tools:context=".IntroActivity"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:id="@+id/frameLayoutAbout">
+
+
+    <com.ciriousjoker.homingcompass.LockableHorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView_About_Background"
+        android:layout_gravity="center"
+        android:scrollbars="none">
+
+        <ImageView
+            android:id="@+id/imageView_about_background"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:src="@drawable/about_background"/>
+
+    </com.ciriousjoker.homingcompass.LockableHorizontalScrollView>
+
+
+
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        tools:context=".AboutActivity">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_version"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="center"
+            android:id="@+id/textView4"
+            android:textSize="60sp"
+            android:textColor="@color/colorWhite87"
+            android:layout_marginTop="13dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+
+        <TextView
+            android:id="@+id/about_icon_attribution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_icon_attribution"
+
+            android:textSize="13sp"
+            android:textColor="@color/colorWhite87"
+            android:layout_below="@+id/textView4"
+            android:layout_centerHorizontal="true" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/about_rating_bar"
+            android:theme="@style/RatingBar"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/about_license_notice"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_feedback"
+            android:fontFamily="sans-serif-thin"
+            android:id="@+id/textView_about_feedback"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorWhite87"
+            android:padding="8dp"
+            android:gravity="center"
+            android:layout_below="@+id/about_rating_bar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView_about_easter_egg"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical"
+            android:layout_marginBottom="38dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_signature_name"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/colorWhite87"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_signature"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorWhite87"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/textView2"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:textColor="@color/colorWhite87"
+            android:text="@string/about_easter_egg"
+            android:fontFamily="sans-serif-thin"
+            android:id="@+id/textView_about_easter_egg"
+            android:layout_gravity="center_horizontal"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="23dp"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/about_license_notice"
+            android:textColor="@color/colorWhite87"
+            android:textSize="13sp"
+            android:id="@+id/about_license_notice"
+            android:layout_below="@+id/about_icon_attribution"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp" />
+
+    </RelativeLayout>
+
+</FrameLayout>

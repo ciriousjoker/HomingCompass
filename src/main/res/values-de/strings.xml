@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_icon_attribution">Icon erstellt von <a href="http://www.freepik.com/">Freepik</a> von <a href="http://www.flaticon.com">www.flaticon.com</a></string>
+    <string name="notice_map_hint">Lange tippen, um einen Ort festzulegen.</string>
+    <string name="notice_map_preview_hint">Tippe auf die Karte, um einen Ort festzulegen.</string>
+    <string name="maps_marker_subtitle">Hier wohnst Du!</string>
+    <string name="maps_marker_title">Zu Hause</string>
+    <string name="notice_location_first_time">Der erste Start kann etwas länger dauern. Bitte habe Geduld, während nach der GPS Position gesucht wird.</string>
+    <string name="notice_no_location_set">Bitte stelle erst einen Ort ein.</string>
+    <string name="notice_no_permission">Diese App wird ohne diese Berechtigung nicht funktionieren.</string>
+    <string name="notice_no_widget">Vergiss nicht, ein Widget hinzuzufügen!</string>
+    <string name="notice_too_many_widget">Du hast insgesamt %1$s Widgets platziert.</string>
+    <string name="settings_switch_show_distance">Entfernung im Widget anzeigen</string>
+    <string name="settings_switch_show_settings_button">Zahnrad im Widget anzeigen</string>
+    <string name="settings_widget_update_duration">Zeitraum, in dem das Widget updatet</string>
+    <string name="title_activity_maps">Wo wohnst Du?</string>
+    <string name="title_dialog_format">Einheiten-System</string>
+    <string name="about_feedback">Feedback / Fehler melden</string>
+    <string name="settings_switch_update_location_constantly_caption">Deaktivieren, um Energie zu sparen</string>
+    <string name="settings_switch_update_location_constantly">Position konstant aktualisieren</string>
+    <string name="settings_switch_update_location_once">Position wird nur einmal gesucht</string>
+    <string name="intro_step_1">Lege einen Ort fest</string>
+    <string name="intro_step_2">Platzier das Widget</string>
+    <string name="intro_step_3">Tippe auf das Widget</string>
+    <string name="intro_step_4">Viel Spaß!</string>
+    <string name="intro_button">Alles klar!</string>
+    <string name="notice_gps_deactivated">Bitte aktiviere GPS, der Energiesparmodus ist dabei nicht ausreichend.</string>
+    <string name="about_license_notice">Lizenziert unter der <a href="https://opensource.org/licenses/MIT">MIT Lizenz</a></string>
+
+    <string-array name="settings_format_options">
+        <item>Meter / Kilometer</item>
+        <item>Fuß / Meilen</item>
+    </string-array>
+</resources>

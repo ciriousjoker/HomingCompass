@@ -1,0 +1,188 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    tools:context=".IntroActivity"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:id="@+id/frameLayoutIntro">
+
+
+    <com.ciriousjoker.homingcompass.LockableHorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView_Intro_Background"
+        android:scrollbars="none">
+        <ImageView
+            android:id="@+id/imageView_intro_background"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:src="@drawable/intro_background_new"/>
+    </com.ciriousjoker.homingcompass.LockableHorizontalScrollView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+
+            android:gravity="start"
+            android:layout_gravity="start"
+            android:orientation="horizontal"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:id="@+id/linearLayout_Intro_Step_1">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/step_bubble"
+                android:text="1"
+                android:textColor="@color/colorWhite87"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorWhite87"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center_vertical"
+                android:text="@string/intro_step_1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+
+            android:gravity="start"
+            android:layout_gravity="start"
+            android:orientation="horizontal"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:id="@+id/linearLayout_Intro_Step_2">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/step_bubble"
+                android:text="2"
+                android:textColor="@color/colorWhite87"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorWhite87"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center_vertical"
+                android:text="@string/intro_step_2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+
+            android:gravity="start"
+            android:layout_gravity="start"
+            android:orientation="horizontal"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:id="@+id/linearLayout_Intro_Step_3">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/step_bubble"
+                android:text="3"
+                android:textColor="@color/colorWhite87"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorWhite87"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center_vertical"
+                android:text="@string/intro_step_3"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+
+            android:gravity="start"
+            android:layout_gravity="start"
+            android:orientation="horizontal"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:id="@+id/linearLayout_Intro_Step_4">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/step_bubble"
+                android:text="4"
+                android:textColor="@color/colorWhite87"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorWhite87"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center_vertical"
+                android:text="@string/intro_step_4"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+
+            android:text="@string/intro_button"
+            android:id="@+id/buttonIntroFinish"
+            android:background="@drawable/button_layout"
+            android:clickable="true"
+            android:textColor="@color/colorWhite87"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_row="5"
+            android:layout_column="0" />
+
+    </GridLayout>
+</FrameLayout>
