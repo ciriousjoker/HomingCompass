@@ -7,21 +7,17 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 
 public class WidgetProvider extends AppWidgetProvider{
 
-    String widgetStringDistance;
-
+    public static String MY_PREFS_FILE;
     private static String KEY_DISTANCE;
     private static String KEY_ROTATION;
-
-    public static  String MY_PREFS_FILE;
-
-    private static final String TAG = "WidgetProvider";
+    String widgetStringDistance;
+    //private static final String TAG = "WidgetProvider";
     private int SettingsButton_Visibility;
     private int Distance_Visibility;
 
@@ -29,18 +25,18 @@ public class WidgetProvider extends AppWidgetProvider{
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        Log.i(TAG, "onUpdate()");
+        //Log.i(TAG, "onUpdate()");
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        KEY_DISTANCE = context.getString(R.string.widget_key_distance);
-        KEY_ROTATION = context.getString(R.string.widget_key_rotation);
-        MY_PREFS_FILE = context.getString(R.string.shared_pref_filename);
+        KEY_DISTANCE = context.getString(R.string.key_widget_distance);
+        KEY_ROTATION = context.getString(R.string.key_widget_rotation);
+        MY_PREFS_FILE = context.getString(R.string.shared_pref_file);
 
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
         adjustVisibility(context, remoteViews);
 
         // Register onClickListeners
-        remoteViews.setOnClickPendingIntent(R.id.widget_button_settings, PendingIntent.getActivity(context, 0, new Intent(context, SettingsActivity.class), 0));
+        remoteViews.setOnClickPendingIntent(R.id.widget_button_settings, PendingIntent.getActivity(context, 0, new Intent(context, WidgetSettingsDialog.class), 0));
         remoteViews.setOnClickPendingIntent(R.id.widget_background, PendingIntent.getService(context, 0, new Intent(context, WidgetIntentService.class), 0));
         remoteViews.setOnClickPendingIntent(R.id.widget_needle, PendingIntent.getService(context, 0, new Intent(context, WidgetIntentService.class), 0));
 
@@ -92,7 +88,7 @@ public class WidgetProvider extends AppWidgetProvider{
     }
 
     private int getNeedleResourceId(Context context, int rotationAngle) {
-        return context.getResources().getIdentifier(context.getString(R.string.widget_needle_resource)+rotationAngle, context.getString(R.string.widget_needle_resource_group), context.getPackageName());
+        return context.getResources().getIdentifier(context.getString(R.string.key_widget_needle_resource) + rotationAngle, context.getString(R.string.key_widget_needle_resource_group), context.getPackageName());
     }
 
     public void updateWidgetNow(Context context, RemoteViews remoteViews){

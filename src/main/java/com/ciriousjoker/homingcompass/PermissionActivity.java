@@ -41,7 +41,7 @@ public class PermissionActivity extends AppCompatActivity {
             case REQUEST_CODE_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(getIntent().getExtras().getBoolean(getString(R.string.permission_key_start_service), false)) {
+                    if (getIntent().getExtras().getBoolean(getString(R.string.key_permission_start_service), false)) {
                         Intent startServiceIntent = new Intent(this, WidgetIntentService.class);
                         startService(startServiceIntent);
                     }

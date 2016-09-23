@@ -7,7 +7,7 @@
     <color name="colorBlack54">#89000000</color>
     <color name="colorWhite87">#deFFFFFF</color>
     <color name="colorWhite54">#89FFFFFF</color>
-
+    <color name="colorWhiteBackground">@color/md_grey_50</color>
     <color name="black_overlay">#66000000</color>
 
 

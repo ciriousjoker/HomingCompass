@@ -1,22 +1,15 @@
 package com.ciriousjoker.homingcompass;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.RatingBar;
@@ -36,7 +29,7 @@ public class AboutActivity extends AppCompatActivity implements RatingBar.OnRati
         setContentView(R.layout.activity_about);
 
         // Save rating
-        MY_PREFS_FILE = getString(R.string.shared_pref_filename);
+        MY_PREFS_FILE = getString(R.string.shared_pref_file);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_FILE, MODE_PRIVATE);
 
         //TODO: Update copyright every year automatically

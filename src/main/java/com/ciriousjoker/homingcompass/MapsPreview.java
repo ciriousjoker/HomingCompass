@@ -28,16 +28,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsPreview extends Fragment {
 
-    MapView mMapView;
-
     public static String MY_PREFS_FILE;
     private final int REQUEST_CODE_LOAD_MAP = 101;
+    MapView mMapView;
     //private static final String TAG = "MapsPreview";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maps_preview, container, false);
-        MY_PREFS_FILE = getString(R.string.shared_pref_filename);
+        MY_PREFS_FILE = getString(R.string.shared_pref_file);
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -163,7 +162,7 @@ public class MapsPreview extends Fragment {
         SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE);
         LatLng home_location = new LatLng(getDouble(prefs, getString(R.string.shared_pref_home_latitude), 0.0), getDouble(prefs, getString(R.string.shared_pref_home_longitude), 0.0));
         if(home_location.latitude != 0.0 && home_location.longitude != 0.0) {
-            googleMap.addMarker(new MarkerOptions().position(home_location).title(getString(R.string.maps_marker_title)).snippet(getString(R.string.maps_marker_subtitle))).showInfoWindow();
+            googleMap.addMarker(new MarkerOptions().position(home_location).title(getString(R.string.maps_marker_home_title)).snippet(getString(R.string.maps_marker_home_snippet))).showInfoWindow();
             CameraPosition cameraPosition = new CameraPosition.Builder().target(home_location).zoom(12).build();
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
@@ -180,6 +179,14 @@ public class MapsPreview extends Fragment {
             }
         } else {
             Intent intentStartMapChooser = new Intent(getActivity(), MapsActivity.class);
+
+            SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE);
+            LatLng home_location = new LatLng(getDouble(prefs, getString(R.string.shared_pref_home_latitude), 0.0), getDouble(prefs, getString(R.string.shared_pref_home_longitude), 0.0));
+            intentStartMapChooser.putExtra(getString(R.string.key_intent_longitude), home_location.latitude);
+            intentStartMapChooser.putExtra(getString(R.string.key_intent_longitude), home_location.longitude);
+
+            intentStartMapChooser.putExtra(getString(R.string.key_intent_marker_title), getString(R.string.maps_marker_home_title));
+            intentStartMapChooser.putExtra(getString(R.string.key_intent_marker_snippet), getString(R.string.maps_marker_home_snippet));
             startActivity(intentStartMapChooser);
         }
     }
@@ -192,6 +199,14 @@ public class MapsPreview extends Fragment {
                     Toast.makeText(getActivity(), R.string.notice_no_permission, Toast.LENGTH_LONG).show();
                 } else {
                     Intent intentStartMapChooser = new Intent(getActivity(), MapsActivity.class);
+
+                    SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE);
+                    LatLng home_location = new LatLng(getDouble(prefs, getString(R.string.shared_pref_home_latitude), 0.0), getDouble(prefs, getString(R.string.shared_pref_home_longitude), 0.0));
+                    intentStartMapChooser.putExtra(getString(R.string.key_intent_latitude), home_location.latitude);
+                    intentStartMapChooser.putExtra(getString(R.string.key_intent_longitude), home_location.longitude);
+
+                    intentStartMapChooser.putExtra(getString(R.string.key_intent_marker_title), getString(R.string.maps_marker_home_title));
+                    intentStartMapChooser.putExtra(getString(R.string.key_intent_marker_snippet), getString(R.string.maps_marker_home_snippet));
                     startActivity(intentStartMapChooser);
                 }
             }

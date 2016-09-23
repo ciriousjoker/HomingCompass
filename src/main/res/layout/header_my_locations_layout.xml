@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_Header"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/icon_add_location"
+            android:layout_width="56dp"
+            android:layout_height="fill_parent"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_add_black_24dp" />
+
+        <EditText
+            android:id="@+id/editText_MyLocation_Header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/icon_add_location"
+            android:layout_toStartOf="@+id/button_add_location"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:gravity="start|center_vertical"
+            android:hint="@string/my_locations_header_hint"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorBlack87"
+            android:textColorHint="@color/colorBlack54" />
+
+        <View
+            android:id="@+id/view_MyLocationHeader_Overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/icon_add_location" />
+
+        <ImageButton
+            android:id="@+id/button_add_location"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name"
+            android:onClick="addLocationItem"
+            android:src="@drawable/ic_done_black_24dp"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/divider_after_header"
+        style="@style/DividerNoMargin"
+        android:visibility="invisible" />
+</LinearLayout>

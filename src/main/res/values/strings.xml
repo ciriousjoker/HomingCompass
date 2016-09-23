@@ -1,27 +1,33 @@
 <resources>
     <!-- Titles -->
     <string name="app_name" translatable="false">Homing Compass</string>
-    <string name="app_version" translatable="false">Version 1.0.1</string>
+    <string name="app_version" translatable="false">Version 2.1</string>
 
     <string name="title_activity_maps">Where do you live?</string>
     <string name="title_dialog_format">Unit system</string>
+    <string name="title_my_locations">My Locations</string>
+
     <string name="menu_about" translatable="false">About</string>
 
     <!-- Keys -->
-    <string name="widget_needle_resource" translatable="false">widget_needle_rotated_</string>
-    <string name="widget_needle_resource_group" translatable="false">drawable</string>
+    <string name="key_widget_needle_resource" translatable="false">widget_needle_rotated_</string>
+    <string name="key_widget_needle_resource_group" translatable="false">drawable</string>
+    <string name="key_widget_distance" translatable="false">kljasdklfjansdfsd</string>
+    <string name="key_widget_rotation" translatable="false">vamkdjmfgkadfmgdf</string>
+    <string name="key_widget_settings_visible" translatable="false">vaofpoajifvopaijv</string>
 
-    <string name="widget_key_distance" translatable="false">kljasdklfjansdfsd</string>
-    <string name="widget_key_rotation" translatable="false">vamkdjmfgkadfmgdf</string>
-    <string name="widget_key_settings_visible" translatable="false">vaofpoajifvopaijv</string>
-    <string name="permission_key_start_service" translatable="false">adfnviadfnvidfgdf</string>
+    <string name="key_permission_start_service" translatable="false">adfnviadfnvidfgdf</string>
 
-    <string name="maps_marker_title">Home</string>
-    <string name="maps_marker_subtitle">You live here</string>
-
+    <string name="key_intent_latitude" translatable="false">latitude</string>
+    <string name="key_intent_longitude" translatable="false">longitude</string>
+    <string name="key_intent_marker_title" translatable="false">marker_title</string>
+    <string name="key_intent_marker_snippet" translatable="false">marker_snippet</string>
+    <string name="key_intent_location_id" translatable="false">id</string>
+    <string name="key_intent_show_settings_button" translatable="false">show_settings_button</string>
 
     <!-- Shared Preference -->
-    <string name="shared_pref_filename" translatable="false">settings_database</string>
+    <string name="shared_pref_file" translatable="false">settings_database</string>
+    <string name="shared_pref_my_locations_file" translatable="false">my_locations_database</string>
 
     <string name="shared_pref_home_latitude" translatable="false">home_latitude</string>
     <string name="shared_pref_home_longitude" translatable="false">home_longitude</string>
@@ -42,6 +48,7 @@
     <string name="shared_pref_flag_app_opened_previously" translatable="false">shared_pref_app_opened_previously</string>
     <string name="shared_pref_flag_notice_dismissed" translatable="false">notice_dismissed</string>
 
+    <string name="shared_pref_widget_location" translatable="false">widget_location</string>
 
     <!-- Formats -->
     <string name="format_kilometer" translatable="false">" km"</string>
@@ -63,7 +70,8 @@
     <string name="about_easter_egg" translatable="false">Viel Spaß, Nina ;)</string>
 
     <string name="settings_widget_update_duration">Widget update duration</string>
-    <string name="settings_switch_show_distance">Show distance in the widget</string>
+    <string name="settings_item_which_location">Used location</string>
+    <string name="settings_switch_show_distance">Show distance</string>
     <string name="settings_switch_show_settings_button">Show settings button in the widget</string>
 
     <string name="settings_switch_update_location_constantly">Updating your location constantly</string>
@@ -74,13 +82,23 @@
         <item>Feet / Miles</item>
     </string-array>
 
-    <string name="intro_step_1">Set your home location</string>
+    <string name="intro_step_1">Set a location</string>
     <string name="intro_step_2">Add the widget</string>
     <string name="intro_step_3">Tap on the widget</string>
     <string name="intro_step_4">Success!</string>
     <string name="intro_button">Got it!</string>
 
-    // User notices
+    <string name="maps_marker_home_title">Home</string>
+    <string name="maps_marker_home_snippet">You live here</string>
+
+    <string name="my_locations_header_hint">Add location</string>
+    <string name="my_locations_item_hint">Enter a name</string>
+
+    <!-- Buttons -->
+    <string name="button_open_settings">Settings</string>
+    <string name="button_add_location">Add</string>
+
+    <!-- User notices -->
     <string name="notice_no_widget">You have no widget, don\'t forget to add one!</string>
     <string name="notice_too_many_widget">You have %1$s widgets on your home screen(s).</string>
     <string name="notice_map_preview_hint">Tap on the map to set a location.</string>
@@ -89,6 +107,7 @@
     <string name="notice_no_permission">The app won\'t work without this permission.</string>
     <string name="notice_location_first_time">Searching for a location for the first time might take some time, please be patient.</string>
     <string name="notice_gps_deactivated">Please activate gps, battery saving mode is not sufficient.</string>
-
-
+    <string name="notice_saved">Saved</string>
+    <string name="notice_general_error">Something went wrong, sorry.</string>
+    <string name="notice_no_name_set">Please enter a name</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -17,92 +17,66 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     <ScrollView
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clipChildren="false">
         <LinearLayout
+            android:id="@+id/settings_CardView_Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/settings_CardView_Layout"
             android:animateLayoutChanges="true"
             android:clipToPadding="false"
             android:orientation="vertical">
 
-            <!--
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            -->
 
             <android.support.v7.widget.CardView
+                android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/container"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="#fff">
+
+                <ImageButton
+                    android:id="@+id/buttonMyLocations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:elevation="4dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_star_accent_32dp"
+                    tools:ignore="ContentDescription" />
             </android.support.v7.widget.CardView>
 
 
+
             <LinearLayout
+                android:id="@+id/textView_WhichLocation"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:orientation="vertical">
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/settings_widget_update_duration"
-                    android:id="@+id/textView" />
-
+                    android:text="@string/settings_item_which_location"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
                 <TextView
+                    android:id="@+id/textView_WhichLocation_Description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorBlack54"
-                    android:id="@+id/textView_SeekBarDescription"
-                    android:text="" />
-
-                <SeekBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/seekBar_widget_duration"
-                    android:indeterminate="false"
-                    android:max="9"
-                    android:progress="5" />
+                    android:textColor="@color/colorBlack54" />
             </LinearLayout>
 
 
-            <View style="@style/Divider"/>
-
-
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/settings_switch_show_distance"
-                android:id="@+id/switch_ShowDistance"
-                android:checked="true" />
-
-
-
-
-
-            <View style="@style/Divider"/>
-
-
+            <View style="@style/Divider" />
 
 
             <LinearLayout
@@ -111,50 +85,114 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:id="@+id/textView_Format">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/title_dialog_format"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack54"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/textView_FormatDescription"
-                    android:text="" />
-            </LinearLayout>
-            <View style="@style/Divider" android:id="@+id/divider_after_unit_system"/>
+                android:paddingRight="@dimen/activity_horizontal_margin">
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_widget_update_duration"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_SeekBarDescription"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorBlack54" />
+
+                    <SeekBar
+                        android:id="@+id/seekBar_widget_duration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="false"
+                        android:max="9"
+                        android:progress="5" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <View style="@style/Divider"/>
 
 
             <Switch
+                android:id="@+id/switch_ShowDistance"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
+                android:background="?attr/selectableItemBackground"
+                android:checked="true"
                 android:gravity="center_vertical"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/settings_switch_show_distance"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+
+            <View style="@style/Divider"/>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/textView_Format"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
                 android:background="?attr/selectableItemBackground"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_dialog_format"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/textView_FormatDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/colorBlack54" />
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/divider_after_unit_system"
+                style="@style/Divider" />
+
+
+            <Switch
+                android:id="@+id/switch_ShowSettingsButton"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/settings_switch_show_settings_button"
-                android:id="@+id/switch_ShowSettingsButton" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <View style="@style/Divider"/>
 
 
             <FrameLayout
+                android:id="@+id/switch_UpdateLocationConstantly_Clickable"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:gravity="center_vertical"
-                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingEnd="0dp"
-                android:id="@+id/switch_UpdateLocationConstantly_Clickable">
+                android:paddingStart="@dimen/activity_horizontal_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -163,29 +201,28 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/textView_UpdateLocationConstantly"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/textView_UpdateLocationConstantly"
-                        android:text="@string/settings_switch_update_location_constantly" />
+                        android:text="@string/settings_switch_update_location_constantly"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack54"
+                        android:text="@string/settings_switch_update_location_constantly_caption"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="@string/settings_switch_update_location_constantly_caption" />
+                        android:textColor="@color/colorBlack54" />
                 </LinearLayout>
 
                 <Switch
+                    android:id="@+id/switch_UpdateLocationConstantly"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="@dimen/activity_horizontal_margin"
                     android:background="?attr/selectableItemBackground"
-                    android:id="@+id/switch_UpdateLocationConstantly" />
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingStart="0dp" />
             </FrameLayout>
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
