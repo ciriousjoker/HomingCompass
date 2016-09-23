@@ -1,7 +1,7 @@
 <resources>
     <!-- Titles -->
     <string name="app_name" translatable="false">Homing Compass</string>
-    <string name="app_version" translatable="false">Version 2.3</string>
+    <string name="app_version" translatable="false">Version 2.3.1</string>
 
     <string name="title_activity_maps">Where do you live?</string>
     <string name="title_dialog_format">Unit system</string>

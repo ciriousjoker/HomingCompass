@@ -7,17 +7,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 
 public class WidgetProvider extends AppWidgetProvider{
 
+    private static final String TAG = "WidgetProvider";
     public static String MY_PREFS_FILE;
     private static String KEY_DISTANCE;
     private static String KEY_ROTATION;
     String widgetStringDistance;
-    //private static final String TAG = "WidgetProvider";
     private int SettingsButton_Visibility;
     private int Distance_Visibility;
 
@@ -67,17 +68,19 @@ public class WidgetProvider extends AppWidgetProvider{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
+        Log.i(TAG, "received something");
 
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
         adjustVisibility(context, remoteViews);
 
         if(intent.hasExtra(KEY_ROTATION)){
+            Log.i(TAG, "received rotation");
             remoteViews.setImageViewResource(R.id.widget_needle, getNeedleResourceId(context, intent.getIntExtra(KEY_ROTATION, 0)));
         }
 
         if(intent.hasExtra(KEY_DISTANCE)){
             widgetStringDistance = intent.getStringExtra(KEY_DISTANCE);
+            Log.i(TAG, "received distance");
             remoteViews.setTextViewText(R.id.widget_distance, widgetStringDistance);
         }
 
@@ -85,6 +88,7 @@ public class WidgetProvider extends AppWidgetProvider{
         remoteViews.setViewVisibility(R.id.widget_distance, Distance_Visibility);
 
         updateWidgetNow(context, remoteViews);
+        super.onReceive(context, intent);
     }
 
     private int getNeedleResourceId(Context context, int rotationAngle) {

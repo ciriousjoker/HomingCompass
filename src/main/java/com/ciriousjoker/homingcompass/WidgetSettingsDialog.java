@@ -26,6 +26,24 @@ public class WidgetSettingsDialog extends Activity {
     private boolean waiting_for_permission_result = false;
 
     @Override
+    protected void onDestroy() {
+        try {
+            alertDialog.dismiss();
+        } catch (Exception ignored) {
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        try {
+            alertDialog.dismiss();
+        } catch (Exception ignored) {
+        }
+        super.onPause();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.dialog_widget_settings)

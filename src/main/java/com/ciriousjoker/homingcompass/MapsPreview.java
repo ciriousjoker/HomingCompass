@@ -182,7 +182,7 @@ public class MapsPreview extends Fragment {
 
             SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE);
             LatLng home_location = new LatLng(getDouble(prefs, getString(R.string.shared_pref_home_latitude), 0.0), getDouble(prefs, getString(R.string.shared_pref_home_longitude), 0.0));
-            intentStartMapChooser.putExtra(getString(R.string.key_intent_longitude), home_location.latitude);
+            intentStartMapChooser.putExtra(getString(R.string.key_intent_latitude), home_location.latitude);
             intentStartMapChooser.putExtra(getString(R.string.key_intent_longitude), home_location.longitude);
 
             intentStartMapChooser.putExtra(getString(R.string.key_intent_marker_title), getString(R.string.maps_marker_home_title));

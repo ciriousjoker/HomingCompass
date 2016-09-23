@@ -132,7 +132,16 @@ public class WidgetUpdateThread extends Thread implements Runnable {
 
                     if (hasPermission()) {
                         try {
-                            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, createLocationListener());
+                            if (!prefs.getBoolean(c.getString(R.string.shared_pref_setting_constant_location_updates), true)) {
+                                lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                                if (lastLocation == null) {
+                                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, createLocationListener());
+                                }// else {
+                                //Log.i(TAG, "getLastLocation returned: " + lastLocation.getLatitude() + " / " + lastLocation.getLongitude());
+                                //}
+                            } else {
+                                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, createLocationListener());
+                            }
                         } catch (SecurityException e) {
                             //Log.i(TAG, "FusedLocationApi requestLocationUpdates failed: " + e.getMessage());
                         }
@@ -154,7 +163,7 @@ public class WidgetUpdateThread extends Thread implements Runnable {
                 @Override
                 public void onLocationChanged(Location location) {
                     //if(Looper.myLooper() == Looper.getMainLooper()) {
-                    //Log.i(TAG, "onLocationChanged() is running in a separate thread.");
+                    //Log.i(TAG, "onLocationChanged()");
                     //}
 
                     homeLocation = getHomeLocation();
@@ -167,7 +176,6 @@ public class WidgetUpdateThread extends Thread implements Runnable {
 
                     if(!prefs.getBoolean(c.getString(R.string.shared_pref_setting_constant_location_updates), true)) {
                         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, createLocationListener());
-                        //Log.i(TAG, "onLocationChanged() was unregistered.");
                     }
                 }
             };
@@ -175,6 +183,7 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         return locationListener;
     }
 
+    @Nullable
     private Location getHomeLocation() {
         prefs = c.getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE);
 
