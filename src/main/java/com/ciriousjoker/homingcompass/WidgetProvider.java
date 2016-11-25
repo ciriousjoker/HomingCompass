@@ -26,7 +26,6 @@ public class WidgetProvider extends AppWidgetProvider{
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        //Log.i(TAG, "onUpdate()");
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
         KEY_DISTANCE = context.getString(R.string.key_widget_distance);
@@ -68,19 +67,19 @@ public class WidgetProvider extends AppWidgetProvider{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(TAG, "received something");
+        //Log.i(TAG, "received something");
 
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
         adjustVisibility(context, remoteViews);
 
         if(intent.hasExtra(KEY_ROTATION)){
-            Log.i(TAG, "received rotation");
+            //Log.i(TAG, "received rotation");
             remoteViews.setImageViewResource(R.id.widget_needle, getNeedleResourceId(context, intent.getIntExtra(KEY_ROTATION, 0)));
         }
 
         if(intent.hasExtra(KEY_DISTANCE)){
             widgetStringDistance = intent.getStringExtra(KEY_DISTANCE);
-            Log.i(TAG, "received distance");
+            //Log.i(TAG, "received distance");
             remoteViews.setTextViewText(R.id.widget_distance, widgetStringDistance);
         }
 

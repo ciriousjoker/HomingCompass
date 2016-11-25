@@ -16,9 +16,7 @@
     <string name="title_activity_maps">Wo wohnst du?</string>
     <string name="title_dialog_format">Maßeinheit</string>
     <string name="about_feedback">Feedback / Fehler melden</string>
-    <string name="settings_switch_update_location_constantly_caption">Deaktivieren, um Energie zu sparen</string>
-    <string name="settings_switch_update_location_constantly">Position aktualisieren</string>
-    <string name="settings_switch_update_location_once">Position aktualisieren</string>
+    <string name="settings_switch_battery_saver_mode">Energiesparmodus</string>
     <string name="intro_step_1">Lege einen Ort fest</string>
     <string name="intro_step_2">Platzier das Widget</string>
     <string name="intro_step_3">Tippe auf das Widget</string>
@@ -31,7 +29,7 @@
         <item>Fuß / Meilen</item>
     </string-array>
     <string name="notice_general_error">Da ist etwas schief gelaufen, tut mir leid.</string>
-    <string name="notice_no_name_set">Bitte geben Sie einen Namen ein</string>
+    <string name="notice_no_name_set">Bitte gib einen Namen ein</string>
     <string name="notice_saved">Gespeichert</string>
     <string name="title_my_locations">Meine Orte</string>
     <string name="button_open_settings">Einstellungen</string>
@@ -40,14 +38,9 @@
     <string name="my_locations_header_hint">Ort hinzufügen</string>
     <string name="my_locations_item_hint">Bitte einen Namen eingeben</string>
     <string name="title_dialog_help">Hilfe</string>
-    <string-array name="settings_info_dialog">
-        <item>Hier kannst Du zwischen deinen Orten wechseln.\n\nDu kannst neue Orte hinzufügen, indem Du auf den kleinen Stern oben links auf der Karte tippst.</item>
-        <item>Hier kannst Du einstellen, wie lange sich die Kompassnadel drehen soll.\n\nDenk daran, dass der Akku eventuell unnötig beansprucht wird, wenn Du diesen Wert zu hoch einstellst.</item>
-        <item>Hier kannst Du einstellen, ob Du die Distanz zum Ziel oben links im Widget angezeigt bekommen möchtest.</item>
-        <item>Hier kannst Du einstellen, ob Du lieber das Amerikanische oder das Metrische System verwenden möchtest.</item>
-        <item>Hier kannst Du einstellen, ob Du das Zahnrad oben rechts im Widget angezeigt bekommen möchtest.</item>
-        <item>AUS:\nDie GPS Position wird einmalig ermittelt, sobald Du auf das Widget tippst.\n\nAN:\nDie GPS Position wird angepasst, sobald Du dich bewegst.\n\n\nDu solltest diese Option nur aktivieren, wenn Du davon ausgehst, dass sich die Distanz innerhalb der 1 bis 10 Minuten ändert, weil Du zum Beispiel relativ nah am Ziel bist und dich bewegst, sonst wird der Akku unnötig beansprucht.</item>
-    </string-array>
-    <string name="notice_confirmation_delete_location">Sicher, dass Du diesen Ort löschen möchtest?</string>
+    <string name="notice_confirmation_delete_location">Wirklich löschen?</string>
     <string name="button_remove">Entfernen</string>
+    <string name="button_dont_show_again">Nicht erneut anzeigen</string>
+    <string name="maps_dialog_tutorial">Tippe lange auf die Karte, um einen Ort festzulegen und gehe zurück, um den Ort zu speichern.</string>
+    <string name="settings_dialog_battery_mode">Im Energiesparmodus wird die GPS Position nur einmal zu Beginn ermittelt anstatt die Position alle 5 Sekunden zu aktualisieren. Deaktiviere diese Option, wenn sich die App komisch verhält.</string>
 </resources>

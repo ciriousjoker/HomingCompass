@@ -1,10 +1,10 @@
 <resources>
     <!-- Titles -->
     <string name="app_name" translatable="false">Homing Compass</string>
-    <string name="app_version" translatable="false">Version 2.3.1</string>
+    <string name="app_version" translatable="false">Version 2.5.1</string>
 
     <string name="title_activity_maps">Where do you live?</string>
-    <string name="title_dialog_format">Unit system</string>
+    <string name="title_dialog_format">Distance units</string>
     <string name="title_dialog_help">Help</string>
     <string name="title_my_locations">My Locations</string>
 
@@ -44,10 +44,12 @@
     <string name="shared_pref_setting_show_distance" translatable="false">show_distance</string>
     <string name="shared_pref_setting_show_settings_button" translatable="false">show_settings_button</string>
     <string name="shared_pref_setting_format" translatable="false">shared_pref_format</string>
-    <string name="shared_pref_setting_constant_location_updates" translatable="false">shared_pref_constant_location_updates</string>
+    <string name="shared_pref_setting_battery_saving_mode" translatable="false">shared_pref_constant_location_updates</string>
 
     <string name="shared_pref_flag_app_opened_previously" translatable="false">shared_pref_app_opened_previously</string>
     <string name="shared_pref_flag_notice_dismissed" translatable="false">notice_dismissed</string>
+    <string name="shared_pref_flag_battery_mode_notice_dismissed" translatable="false">settings_info_dismissed</string>
+    <string name="shared_pref_flag_maps_notice_dismissed" translatable="false">maps_tutorial_dismissed</string>
 
     <string name="shared_pref_widget_location" translatable="false">widget_location</string>
 
@@ -75,9 +77,7 @@
     <string name="settings_switch_show_distance">Show distance</string>
     <string name="settings_switch_show_settings_button">Show settings button in the widget</string>
 
-    <string name="settings_switch_update_location_constantly">Updating location constantly</string>
-    <string name="settings_switch_update_location_once">Updating location constantly</string>
-    <string name="settings_switch_update_location_constantly_caption">Turn this off to save battery</string>
+    <string name="settings_switch_battery_saver_mode">Battery saver mode</string>
     <string-array name="settings_format_options">
         <item>Meter / Kilometer</item>
         <item>Feet / Miles</item>
@@ -98,6 +98,7 @@
     <!-- Buttons -->
     <string name="button_open_settings">Settings</string>
     <string name="button_add_location">Add</string>
+    <string name="button_dont_show_again">Don\'t show again</string>
 
     <!-- User notices -->
     <string name="notice_no_widget">You have no widget, don\'t forget to add one!</string>
@@ -115,12 +116,7 @@
     <string name="button_remove">Remove</string>
 
     <!-- Info dialogs -->
-    <string-array name="settings_info_dialog">
-        <item>Here you can switch between all your locations.\n\nYou can set new locations by tapping on the little star in the upper-left corner of the map.</item>
-        <item>Here you can specify, how long the widget should keep on spinning.\n\nNotice that the longer you set this value, the longer it\'ll drain battery.</item>
-        <item>Here you can set if you want the distance to be displayed in the upper-left corner of the widget.</item>
-        <item>Here you can choose if you want to use the metric or the imperial system.</item>
-        <item>Here you can set if you want the little cog to be displayed in the upper-right corner of the widget.</item>
-        <item>OFF:\nThe location will be searched once at the beginning when you tap on the widget and not be updated as long as it\'s running.\n\nON:\nThe location will be retrieved for as long as the widget is running.\n\n\nNote that you should only turn this on if you are relatively close to your destination or you\'re constantly moving.</item>
-    </string-array>
+    <string name="settings_dialog_battery_mode">If this is turned on, the app will only search for the location once instead of every 5 seconds. \n\nTurn this off if you experience weird behaviour.</string>
+    <string name="maps_dialog_tutorial">Long tap to select a location and go back to save it.</string>
+
 </resources>

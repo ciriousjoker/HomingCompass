@@ -1,6 +1,8 @@
 package com.ciriousjoker.homingcompass;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -9,9 +11,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -63,13 +65,6 @@ public class MapsActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     @Override
-    protected void onDestroy() {
-        Log.i(TAG, "onDestroy()");
-        super.onDestroy();
-    }
-
-
-    @Override
     public void onMapReady(GoogleMap gMap) {
         googleMap = gMap;
         UiSettings uiSettings = googleMap.getUiSettings();
@@ -88,7 +83,6 @@ public class MapsActivity extends AppCompatActivity implements GoogleApiClient.C
         googleMap.setOnMapLongClickListener(this);
 
         // Add marker if a previous location was defined
-        //SharedPreferences prefs = getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE);
         LatLng zoom_location = new LatLng(intent.getDoubleExtra(getString(R.string.key_intent_latitude), 0.0), intent.getDoubleExtra(getString(R.string.key_intent_longitude), 0.0));
         if (zoom_location.latitude != 0.0 || zoom_location.longitude != 0.0) {
             CameraPosition cameraPosition = new CameraPosition.Builder().target(zoom_location).zoom(12).build();
@@ -99,16 +93,10 @@ public class MapsActivity extends AppCompatActivity implements GoogleApiClient.C
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
 
-        /*
-        else {
-            // Show snackBarHint
-            Snackbar snackBarHint = Snackbar.make(findViewById(R.id.mapCoordinatorLayout), R.string.notice_map_hint, Snackbar.LENGTH_LONG);
-            View view = snackBarHint.getView();
-            TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
-            tv.setTextColor(Color.WHITE);
-            snackBarHint.show();
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE);
+        if(!prefs.getBoolean(getString(R.string.shared_pref_flag_maps_notice_dismissed), false)) {
+            showInfoDialog();
         }
-        */
     }
 
     @Override
@@ -153,8 +141,6 @@ public class MapsActivity extends AppCompatActivity implements GoogleApiClient.C
             putDouble(editor, getString(R.string.shared_pref_home_latitude), homeMarker.getPosition().latitude);
             putDouble(editor, getString(R.string.shared_pref_home_longitude), homeMarker.getPosition().longitude);
             editor.apply();
-
-            //Log.i(TAG, "Home saved: " + homeMarker.getPosition().latitude + " / " + homeMarker.getPosition().longitude);
         }
 
     }
@@ -186,8 +172,31 @@ public class MapsActivity extends AppCompatActivity implements GoogleApiClient.C
         return edit.putLong(key, Double.doubleToRawLongBits(value));
     }
 
-    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-        return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
+    public void showInfoDialog() {
+        String messageText = getResources().getString(R.string.maps_dialog_tutorial);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyAlertDialogTheme);
+        builder.setTitle(R.string.title_dialog_help);
+        builder.setMessage(messageText);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, getString(R.string.button_dont_show_again), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                SharedPreferences.Editor prefs = getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE).edit();
+                prefs.putBoolean(getString(R.string.shared_pref_flag_maps_notice_dismissed), true);
+                prefs.apply();
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
 }

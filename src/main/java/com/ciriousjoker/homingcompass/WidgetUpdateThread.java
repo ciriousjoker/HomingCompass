@@ -7,10 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.GeomagneticField;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -19,6 +15,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -28,11 +25,15 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.marsvard.northwest.NorthWest;
 
 import org.jetbrains.annotations.Contract;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import rx.Subscriber;
+import rx.Subscription;
 
 
 public class WidgetUpdateThread extends Thread implements Runnable {
@@ -44,10 +45,9 @@ public class WidgetUpdateThread extends Thread implements Runnable {
     private LocationRequest mLocationRequest;
     private GoogleApiClient.ConnectionCallbacks connectionCallbacks;
     private GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener;
-    private SensorEventListener sensorEventListener;
     private String KEY_DISTANCE;
     private String KEY_ROTATION;
-    private SensorManager sensorManager;
+
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
     private Location homeLocation = new Location("");
@@ -56,6 +56,10 @@ public class WidgetUpdateThread extends Thread implements Runnable {
     private String TAG;
     private Context c;
     private boolean locationToastShown = false;
+    private Location currentLocation;
+
+    NorthWest northWest;
+    private Subscription sensorEventListener;
     private LocationListener locationListener;
 
     public WidgetUpdateThread(Context context) {
@@ -128,17 +132,13 @@ public class WidgetUpdateThread extends Thread implements Runnable {
             connectionCallbacks = new GoogleApiClient.ConnectionCallbacks() {
                 @Override
                 public void onConnected(@Nullable Bundle bundle) {
-                    //Log.i(TAG, "Connected to the Google API");
-
                     if (hasPermission()) {
                         try {
-                            if (!prefs.getBoolean(c.getString(R.string.shared_pref_setting_constant_location_updates), true)) {
+                            if (prefs.getBoolean(c.getString(R.string.shared_pref_setting_battery_saving_mode), false)) {
                                 lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
                                 if (lastLocation == null) {
                                     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, createLocationListener());
-                                }// else {
-                                //Log.i(TAG, "getLastLocation returned: " + lastLocation.getLatitude() + " / " + lastLocation.getLongitude());
-                                //}
+                                }
                             } else {
                                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, createLocationListener());
                             }
@@ -174,7 +174,7 @@ public class WidgetUpdateThread extends Thread implements Runnable {
 
                     setCurrentLocation(location);
 
-                    if(!prefs.getBoolean(c.getString(R.string.shared_pref_setting_constant_location_updates), true)) {
+                    if(prefs.getBoolean(c.getString(R.string.shared_pref_setting_battery_saving_mode), false)) {
                         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, createLocationListener());
                     }
                 }
@@ -231,8 +231,16 @@ public class WidgetUpdateThread extends Thread implements Runnable {
             return;
         }
 
-        sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
+        //DSensorManager.startDProcessedSensor(c, DProcessedSensor.TYPE_COMPASS_FLAT_ONLY, createSensorEventListener());
+        // initialize NorthWest with a context
+        northWest = new NorthWest(c);
+        sensorEventListener = createSensorEventListener();
 
+
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(2 * 1000)
+                .setFastestInterval(1000);
 
         mGoogleApiClient = new GoogleApiClient.Builder(c)
                 .addConnectionCallbacks(createConnectionCallback())
@@ -240,17 +248,20 @@ public class WidgetUpdateThread extends Thread implements Runnable {
                 .addApi(LocationServices.API)
                 .build();
 
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(2 * 1000)
-                .setFastestInterval(1000);
+        mGoogleApiClient.connect();
+
+        /*
+        sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
+
+
+
 
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 
 
 
-        mGoogleApiClient.connect();
         sensorManager.registerListener(createSensorEventListener(), sensor, SensorManager.SENSOR_DELAY_UI);
+        */
 
         final long initTime = System.currentTimeMillis();
         Runnable runnableCleanup = new Runnable() {
@@ -273,55 +284,64 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         }
     }
 
-    private SensorEventListener createSensorEventListener() {
+    private Subscription createSensorEventListener() {
         if(sensorEventListener == null) {
-            sensorEventListener = new SensorEventListener() {
-                @Override
-                public void onSensorChanged(SensorEvent sensorEvent) {
 
-                    homeLocation = getHomeLocation();
-                    if(homeLocation == null) {
-                        quit();
-                        return;
-                    }
+            sensorEventListener = northWest
+                    .getObservable()
+                    .subscribe(new Subscriber<Double>() {
+                        @Override
+                        public void onCompleted() {
 
-                    Location currentLocation = getCurrentLocation();
-                    if(currentLocation == null) {
-                        if(!locationToastShown) {
-                            showToast(c.getString(R.string.notice_location_first_time));
-                            locationToastShown = true;
                         }
-                        return;
-                    }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(Double degree) {
+                            homeLocation = getHomeLocation();
+                            if(homeLocation == null) {
+                                quit();
+                                return;
+                            }
+
+                            currentLocation = getCurrentLocation();
+                            if(currentLocation == null) {
+                                return;
+                            }
 
 
-                    distanceInMeters = currentLocation.distanceTo(homeLocation);
+                            distanceInMeters = currentLocation.distanceTo(homeLocation);
 
-                    float directionInDegree = currentLocation.bearingTo(homeLocation);
+                            float directionInDegree = currentLocation.bearingTo(homeLocation);
 
-                    GeomagneticField geomagneticField = new GeomagneticField(
-                            Double.valueOf(currentLocation.getLatitude()).floatValue(),
-                            Double.valueOf(currentLocation.getLongitude()).floatValue(),
-                            Double.valueOf(currentLocation.getAltitude()).floatValue(),
-                            System.currentTimeMillis()
-                    );
 
-                    directionInDegree += geomagneticField.getDeclination();
+                            int widget_degree = calculateNeedleHeading(degree, directionInDegree);
+                            String widget_distance = formatDistance(c, prefs, distanceInMeters);
 
-                    int widget_degree = calculateNeedleHeading(Math.round(sensorEvent.values[0]), directionInDegree);
-                    String widget_distance = formatDistance(c, prefs, distanceInMeters);
-
-                    updateWidget(widget_degree, widget_distance);
-                }
-
-                @Override
-                public void onAccuracyChanged(Sensor sensor, int i) {
-
-                }
-            };
+                            updateWidget(widget_degree, widget_distance);
+                        }
+                    });
         }
         return sensorEventListener;
     }
+
+    /*
+    private float calculateDeclination() {
+
+        GeomagneticField geomagneticField = new GeomagneticField(
+                Double.valueOf(currentLocation.getLatitude()).floatValue(),
+                Double.valueOf(currentLocation.getLongitude()).floatValue(),
+                Double.valueOf(currentLocation.getAltitude()).floatValue(),
+                System.currentTimeMillis()
+        );
+
+        return geomagneticField.getDeclination();
+    }
+    */
 
     private void updateWidget(int widget_degree, String widget_distance) {
         Intent intentUpdateWidget = new Intent(c, WidgetProvider.class);
@@ -343,6 +363,10 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         }
 
         if(location.getLatitude() == 0.0 && location.getLongitude() == 0.0 && location.getAltitude() == 0.0) {
+            if(!locationToastShown) {
+                showToast(c.getString(R.string.notice_location_first_time));
+                locationToastShown = true;
+            }
             return null;
         }
         return location;
@@ -359,10 +383,8 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         lastLocation = location;
     }
 
-    public void quit() {
-        if(sensorManager != null) {
-            sensorManager.unregisterListener(createSensorEventListener());
-        }
+    private void quit() {
+        sensorEventListener.unsubscribe();
 
         if(mGoogleApiClient != null) {
             if(mGoogleApiClient.isConnected()) {
@@ -403,24 +425,27 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         return !(ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
     }
 
-    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
+    private SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
         return edit.putLong(key, Double.doubleToRawLongBits(value));
     }
 
     @Contract(pure = true)
-    private int calculateNeedleHeading(float heading, float direction) {
-        float needle_degree;
+    private int calculateNeedleHeading(double heading, float direction) {
+        int needle_degree;
+        //float declination = calculateDeclination();
 
         float adjusted_direction = 360 + direction;
         while( adjusted_direction >= 360 ){
             adjusted_direction -= 360;
         }
 
-        needle_degree = 360 + adjusted_direction - heading;
+        needle_degree = Math.round(360 + adjusted_direction - Math.round(heading));// + declination);
         while( needle_degree >= 360 ){
             needle_degree -= 360;
         }
-        return Math.round(needle_degree);
+
+        Log.i(TAG, "Heading: " + Math.round(heading) + " | Direction: " + Math.round(direction) + " | Degree: " + needle_degree);// + " | Declination: " + declination);
+        return needle_degree;
     }
 
     private ArrayList<MyLocationItem> returnLocations() {

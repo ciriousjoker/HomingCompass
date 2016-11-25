@@ -62,8 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
     private LinearLayout linearLayout_Format;
     private Switch switch_ShowSettingsButton;
 
-    private Switch switch_UpdateLocationConstantly;
-    private TextView textView_UpdateLocationConstantly;
+    private Switch switch_BatterySavingMode;
     private TextView textView_WhichLocation_Description;
 
     @Override
@@ -86,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
             if(widgetIds.length < 1){
                 showCardNotification(getString(R.string.notice_no_widget), 1);
             } else if(widgetIds.length > 1){
-                showCardNotification(getString(R.string.notice_too_many_widget, widgetIds.length), 2);
+                showCardNotification(getString(R.string.notice_too_many_widget, Integer.toString(widgetIds.length)), 2);
             }
 
             LatLng home_location = new LatLng(getDouble(prefs, getString(R.string.shared_pref_home_latitude), 0.0), getDouble(prefs, getString(R.string.shared_pref_home_longitude), 0.0));
@@ -170,26 +169,17 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setup_Switch_LocationType() {
-        switch_UpdateLocationConstantly = (Switch) findViewById(R.id.switch_UpdateLocationConstantly);
-        textView_UpdateLocationConstantly = (TextView) findViewById(R.id.textView_UpdateLocationConstantly);
+        switch_BatterySavingMode = (Switch) findViewById(R.id.switch_BatterySavingMode);
 
-        switch_UpdateLocationConstantly.setChecked(prefs.getBoolean(getString(R.string.shared_pref_setting_constant_location_updates), true));
+        switch_BatterySavingMode.setChecked(prefs.getBoolean(getString(R.string.shared_pref_setting_battery_saving_mode), true));
 
-        if (switch_UpdateLocationConstantly.isChecked()) {
-            textView_UpdateLocationConstantly.setText(R.string.settings_switch_update_location_constantly);
-        } else {
-            textView_UpdateLocationConstantly.setText(R.string.settings_switch_update_location_once);
-        }
-
-        switch_UpdateLocationConstantly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switch_BatterySavingMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (switch_UpdateLocationConstantly.isChecked()) {
-                    textView_UpdateLocationConstantly.setText(R.string.settings_switch_update_location_constantly);
-                } else {
-                    textView_UpdateLocationConstantly.setText(R.string.settings_switch_update_location_once);
+                if(!prefs.getBoolean(getString(R.string.shared_pref_flag_battery_mode_notice_dismissed), false) && switch_BatterySavingMode.isChecked()) {
+                    showBatteryModeInfoDialog();
                 }
-                editor.putBoolean(getString(R.string.shared_pref_setting_constant_location_updates), switch_UpdateLocationConstantly.isChecked());
+                editor.putBoolean(getString(R.string.shared_pref_setting_battery_saving_mode), switch_BatterySavingMode.isChecked());
                 editor.apply();
             }
         });
@@ -223,7 +213,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setup_Switch_ShowDistance() {
-        linearLayout_Format = (LinearLayout) findViewById(R.id.linearLayout_Format);
+        linearLayout_Format = (LinearLayout) findViewById(R.id.textView_Format);
         switch_ShowDistance = (Switch) findViewById(R.id.switch_ShowDistance);
 
         switch_ShowDistance.setChecked(prefs.getBoolean(getString(R.string.shared_pref_setting_show_distance), false));
@@ -454,9 +444,8 @@ public class SettingsActivity extends AppCompatActivity {
         return arrayList_MyLocations.toArray(new CharSequence[arrayList_MyLocations.size()]);
     }
 
-    public void showInfoDialog(View view) {
-        int messageId = Integer.valueOf((String) view.getTag());
-        String messageText = getResources().getStringArray(R.array.settings_info_dialog)[messageId];
+    public void showBatteryModeInfoDialog() {
+        String messageText = getResources().getString(R.string.settings_dialog_battery_mode);
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyAlertDialogTheme);
@@ -466,6 +455,16 @@ public class SettingsActivity extends AppCompatActivity {
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, getString(R.string.button_dont_show_again), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                SharedPreferences.Editor prefs = getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE).edit();
+                prefs.putBoolean(getString(R.string.shared_pref_flag_battery_mode_notice_dismissed), true);
+                prefs.apply();
                 dialog.dismiss();
             }
         });
