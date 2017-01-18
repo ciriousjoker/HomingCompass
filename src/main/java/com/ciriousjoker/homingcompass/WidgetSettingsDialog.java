@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class WidgetSettingsDialog extends Activity {
     final static int REQUEST_CODE_LOAD_MY_LOCATIONS = 101;
-    private SharedPreferences.Editor editor;
     private AlertDialog alertDialog;
     private boolean waiting_for_permission_result = false;
 
@@ -48,8 +47,7 @@ public class WidgetSettingsDialog extends Activity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.dialog_widget_settings)
 
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
-        editor = prefs.edit();
+        final SharedPreferences prefs = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.title_my_locations));
@@ -58,8 +56,7 @@ public class WidgetSettingsDialog extends Activity {
         builder.setSingleChoiceItems(returnLocations(), previousLocationChoice, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                editor.putInt(getString(R.string.shared_pref_widget_location), which);
-                editor.apply();
+                prefs.edit().putInt(getString(R.string.shared_pref_widget_location), which).apply();
                 dialog.dismiss();
             }
         });

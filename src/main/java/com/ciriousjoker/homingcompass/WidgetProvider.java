@@ -7,14 +7,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 
 public class WidgetProvider extends AppWidgetProvider{
 
-    private static final String TAG = "WidgetProvider";
+    //private static final String TAG = "WidgetProvider";
     public static String MY_PREFS_FILE;
     private static String KEY_DISTANCE;
     private static String KEY_ROTATION;

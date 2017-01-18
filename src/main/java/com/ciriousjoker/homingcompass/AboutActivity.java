@@ -14,7 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
+import java.util.Calendar;
 import java.util.Random;
 
 public class AboutActivity extends AppCompatActivity implements RatingBar.OnRatingBarChangeListener {
@@ -32,7 +32,7 @@ public class AboutActivity extends AppCompatActivity implements RatingBar.OnRati
         MY_PREFS_FILE = getString(R.string.shared_pref_file);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_FILE, MODE_PRIVATE);
 
-        //TODO: Update copyright every year automatically
+        ((TextView) findViewById(R.id.txt_about_signature)).append(" ©" + Calendar.getInstance().get(Calendar.YEAR));
 
         // Set toolbar as actionbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);

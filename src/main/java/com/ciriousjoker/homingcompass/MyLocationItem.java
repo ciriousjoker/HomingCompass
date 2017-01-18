@@ -2,7 +2,7 @@ package com.ciriousjoker.homingcompass;
 
 import java.io.Serializable;
 
-public class MyLocationItem implements Serializable {
+class MyLocationItem implements Serializable {
     private static final long serialVersionUID = -5435670920302756945L;
 
     private String name = "";
@@ -10,7 +10,7 @@ public class MyLocationItem implements Serializable {
     private double latitude;
     private double longitude;
 
-    public MyLocationItem(String name) {
+    MyLocationItem(String name) {
         this.setName(name);
     }
 
@@ -22,27 +22,28 @@ public class MyLocationItem implements Serializable {
         this.name = name;
     }
 
-    public boolean isEditing() {
+    boolean isEditing() {
         return isEditing;
     }
 
-    public void setEditing(boolean editing) {
+    void setEditing(boolean editing) {
         isEditing = editing;
     }
 
-    public double getLatitude() {
+    double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    void setLatitude(double latitude) {
+        if(!Double.isNaN(latitude))
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 }

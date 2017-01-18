@@ -18,13 +18,15 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:src="@drawable/intro_background_new"/>
+            android:src="@drawable/intro_background_new"
+            tools:ignore="ContentDescription" />
     </com.ciriousjoker.homingcompass.LockableHorizontalScrollView>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_overlay"/>
+        android:background="@color/black_overlay"
+        tools:ignore="ContentDescription" />
 
     <GridLayout
         android:layout_width="match_parent"

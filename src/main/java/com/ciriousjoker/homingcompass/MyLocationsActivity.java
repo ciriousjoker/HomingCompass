@@ -25,10 +25,9 @@ import java.util.Objects;
 
 public class MyLocationsActivity extends Activity {
 
-    private static final String TAG = "MyLocationsActivity";
+    //private static final String TAG = "MyLocationsActivity";
     public static String MY_PREFS_FILE;
     private MyAdapter adapter;
-    private ArrayList<MyLocationItem> arrayList;
     private RelativeLayout relativeLayout_Header;
     private EditText editText_Header;
     private View view_Header_Overlay;
@@ -158,7 +157,7 @@ public class MyLocationsActivity extends Activity {
         }.getType();
 
 
-        arrayList = gson.fromJson(json, listOfObjects);
+        ArrayList<MyLocationItem> arrayList = gson.fromJson(json, listOfObjects);
 
         if (arrayList == null) {
             arrayList = new ArrayList<>();
@@ -174,21 +173,29 @@ public class MyLocationsActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
-                double latitude = data.getDoubleExtra(getString(R.string.key_intent_latitude), 0.0);
-                double longitude = data.getDoubleExtra(getString(R.string.key_intent_longitude), 0.0);
+                double latitude = data.getDoubleExtra(getString(R.string.key_intent_latitude), 0);
+                double longitude = data.getDoubleExtra(getString(R.string.key_intent_longitude), 0);
 
                 //Log.i(TAG, "Latitude / Longitude: " + latitude + " / " + longitude);
 
-                if (latitude != 0.0 || longitude != 0.0) {
-                    adapter.getItem(data.getIntExtra(getString(R.string.key_intent_location_id), 0)).setLatitude(latitude);
-                    adapter.getItem(data.getIntExtra(getString(R.string.key_intent_location_id), 0)).setLongitude(longitude);
+                if (latitude != 0 && longitude != 0) {
 
-                    saveMyLocations();
+                    MyLocationItem item = adapter.getItem(data.getIntExtra(getString(R.string.key_intent_location_id), 0));
 
-                    Toast.makeText(this, R.string.notice_saved, Toast.LENGTH_SHORT).show();
+                    if(item != null) {
+                        item.setLatitude(latitude);
+                        item.setLongitude(longitude);
+
+                        saveMyLocations();
+                        Toast.makeText(this, R.string.notice_saved, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, R.string.notice_general_error, Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     if (data.getIntExtra(getString(R.string.key_intent_location_id), 0) >= 0) {
                         adapter.getArrayList().remove(data.getIntExtra(getString(R.string.key_intent_location_id), 0));
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(this, R.string.notice_nothing_to_save, Toast.LENGTH_SHORT).show();
                         saveMyLocations();
                     }
                 }
@@ -209,11 +216,17 @@ public class MyLocationsActivity extends Activity {
     }
 
     private void launchMapActivity(int id) {
+        MyLocationItem item = adapter.getItem(id);
+
+        if(item == null) {
+            Toast.makeText(this, R.string.notice_general_error, Toast.LENGTH_LONG).show();
+            return;
+        }
         Intent intentPickLocation = new Intent(MyLocationsActivity.this, MapsActivity.class);
         intentPickLocation.putExtra(getString(R.string.key_intent_location_id), id);
-        intentPickLocation.putExtra(getString(R.string.key_intent_latitude), adapter.getItem(id).getLatitude());
-        intentPickLocation.putExtra(getString(R.string.key_intent_longitude), adapter.getItem(id).getLongitude());
-        intentPickLocation.putExtra(getString(R.string.key_intent_marker_title), adapter.getItem(id).getName());
+        intentPickLocation.putExtra(getString(R.string.key_intent_latitude), item.getLatitude());
+        intentPickLocation.putExtra(getString(R.string.key_intent_longitude), item.getLongitude());
+        intentPickLocation.putExtra(getString(R.string.key_intent_marker_title), item.getName());
         startActivityForResult(intentPickLocation, 0);
     }
 }

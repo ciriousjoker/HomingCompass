@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -25,24 +26,25 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MyAdapter extends ArrayAdapter<MyLocationItem> {
+class MyAdapter extends ArrayAdapter<MyLocationItem> {
 
-    protected static final String TAG = MyAdapter.class.getSimpleName();
+    //protected static final String TAG = MyAdapter.class.getSimpleName();
 
     private ArrayList<MyLocationItem> items;
     private int layoutResourceId;
     private Context context;
 
-    public MyAdapter(Context context, int layoutResourceId, ArrayList<MyLocationItem> items) {
+    MyAdapter(Context context, int layoutResourceId, ArrayList<MyLocationItem> items) {
         super(context, layoutResourceId, items);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.items = items;
     }
 
+    @NonNull
     @SuppressLint("ViewHolder")
     @Override
-    public View getView(int position, View row, ViewGroup parent) {
+    public View getView(int position, View row, @NonNull ViewGroup parent) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
         MyAdapterHolder holder = new MyAdapterHolder();
@@ -140,14 +142,14 @@ public class MyAdapter extends ArrayAdapter<MyLocationItem> {
         });
     }
 
-    public void focusTextField(EditText editText) {
+    private void focusTextField(EditText editText) {
         editText.requestFocus();
         editText.setSelection(editText.getText().length());
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    public ArrayList<MyLocationItem> getArrayList() {
+    ArrayList<MyLocationItem> getArrayList() {
         return items;
     }
 
@@ -164,7 +166,7 @@ public class MyAdapter extends ArrayAdapter<MyLocationItem> {
         prefsEditor.apply();
     }
 
-    public static class MyAdapterHolder {
+    private static class MyAdapterHolder {
         MyLocationItem myLocationItem;
         RelativeLayout relativeLayout;
         TextView textView_MyLocation_Item;

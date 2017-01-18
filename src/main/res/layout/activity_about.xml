@@ -21,7 +21,8 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:src="@drawable/about_background"/>
+            android:src="@drawable/about_background"
+            tools:ignore="ContentDescription" />
 
     </com.ciriousjoker.homingcompass.LockableHorizontalScrollView>
 
@@ -96,6 +97,7 @@
             android:layout_marginBottom="38dp">
 
             <TextView
+                android:id="@+id/txt_about_signature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_signature_name"

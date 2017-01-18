@@ -2,6 +2,7 @@ package com.ciriousjoker.homingcompass;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 public class WidgetIntentService extends Service {
     //private static final String TAG = "WidgetIntentService";
 
+    //TODO: Fix this static problem maybe
+    @SuppressLint("StaticFieldLeak")
     static WidgetUpdateThread myCustomThread;
 
     @Override

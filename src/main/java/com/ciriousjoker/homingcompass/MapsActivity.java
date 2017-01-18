@@ -35,7 +35,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleApiClient.C
         GoogleMap.OnMarkerClickListener,
         OnMapReadyCallback {
 
-    private static final String TAG = "MapActivity";
+    //private static final String TAG = "MapActivity";
     public static String MY_PREFS_FILE;
     private GoogleMap googleMap;
     private Marker homeMarker;

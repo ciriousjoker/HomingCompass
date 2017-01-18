@@ -1,12 +1,12 @@
 package com.ciriousjoker.homingcompass;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.hardware.GeomagneticField;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -36,9 +36,9 @@ import rx.Subscriber;
 import rx.Subscription;
 
 
-public class WidgetUpdateThread extends Thread implements Runnable {
+class WidgetUpdateThread extends Thread implements Runnable {
 
-    public static String MY_PREFS_FILE;
+    private static String MY_PREFS_FILE;
     static boolean isRunning;
     private final Handler handler;
     private GoogleApiClient mGoogleApiClient;
@@ -58,11 +58,11 @@ public class WidgetUpdateThread extends Thread implements Runnable {
     private boolean locationToastShown = false;
     private Location currentLocation;
 
-    NorthWest northWest;
+    private NorthWest northWest;
     private Subscription sensorEventListener;
     private LocationListener locationListener;
 
-    public WidgetUpdateThread(Context context) {
+    WidgetUpdateThread(Context context) {
         c = context;
 
         handler = new Handler();
@@ -75,11 +75,11 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         prefs = c.getSharedPreferences(MY_PREFS_FILE, Context.MODE_PRIVATE);
     }
 
-    static double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
+    private static double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
         return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
     }
 
-    public static String formatDistance(Context context, SharedPreferences prefs, double distance) {
+    static String formatDistance(Context context, SharedPreferences prefs, double distance) {
         String formattedString = "";
         long formattedDistance;
 
@@ -111,7 +111,7 @@ public class WidgetUpdateThread extends Thread implements Runnable {
     }
 
     @NonNull
-    public static Double getLastDistance(Context context, SharedPreferences prefs) {
+    static Double getLastDistance(Context context, SharedPreferences prefs) {
         return getDouble(prefs, context.getString(R.string.shared_pref_last_distance), 0);
     }
 
@@ -372,6 +372,7 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         return location;
     }
 
+    @SuppressLint("CommitPrefEdits")
     private void setCurrentLocation(Location location) {
         if (lastLocation == null) {
             editor = prefs.edit();
@@ -383,8 +384,11 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         lastLocation = location;
     }
 
+    @SuppressLint("CommitPrefEdits")
     private void quit() {
-        sensorEventListener.unsubscribe();
+        if(sensorEventListener != null && !sensorEventListener.isUnsubscribed()) {
+            sensorEventListener.unsubscribe();
+        }
 
         if(mGoogleApiClient != null) {
             if(mGoogleApiClient.isConnected()) {
@@ -417,7 +421,7 @@ public class WidgetUpdateThread extends Thread implements Runnable {
         c.startActivity(locationSettingsIntent);
     }
 
-    public void showToast(String msg) {
+    private void showToast(String msg) {
         Toast.makeText(c, msg, Toast.LENGTH_LONG).show();
     }
 

@@ -50,36 +50,31 @@ public class SettingsActivity extends AppCompatActivity {
     final static int REQUEST_CODE_LOAD_MY_LOCATIONS = 101;
     public static  String MY_PREFS_FILE;
     private static String KEY_DISTANCE;
-    private SharedPreferences.Editor editor;
     private SharedPreferences prefs;
 
     //static final String TAG = "SettingsActivity";
 
-    private SeekBar seekBar_WidgetDuration;
     private TextView textView_SeekBarDescription;
     private TextView textView_Format;
-    private Switch switch_ShowDistance;
     private LinearLayout linearLayout_Format;
-    private Switch switch_ShowSettingsButton;
 
     private Switch switch_BatterySavingMode;
-    private TextView textView_WhichLocation_Description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-
         MY_PREFS_FILE = getString(R.string.shared_pref_file);
         prefs = getSharedPreferences(MY_PREFS_FILE, MODE_PRIVATE);
-        editor = prefs.edit();
 
         int runCount = prefs.getInt(getString(R.string.shared_pref_flag_app_opened_previously), 0);
 
         if(runCount == 0) {
             Intent startIntroduction = new Intent(SettingsActivity.this, IntroActivity.class);
             startActivity(startIntroduction);
-        } else if (runCount > 1) {
+            finish();
+        }
+        setContentView(R.layout.activity_settings);
+        if (runCount > 1) {
             // Show notifications about widgets
             int widgetIds[] = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, WidgetProvider.class));
             if(widgetIds.length < 1){
@@ -93,8 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
                 showCardNotification(getString(R.string.notice_map_preview_hint), 3);
             }
         }
-        editor.putInt(getString(R.string.shared_pref_flag_app_opened_previously), ++runCount);
-        editor.apply();
+        prefs.edit().putInt(getString(R.string.shared_pref_flag_app_opened_previously), ++runCount).apply();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -171,7 +165,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void setup_Switch_LocationType() {
         switch_BatterySavingMode = (Switch) findViewById(R.id.switch_BatterySavingMode);
 
-        switch_BatterySavingMode.setChecked(prefs.getBoolean(getString(R.string.shared_pref_setting_battery_saving_mode), true));
+        switch_BatterySavingMode.setChecked(prefs.getBoolean(getString(R.string.shared_pref_setting_battery_saving_mode), false));
 
         switch_BatterySavingMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -179,20 +173,18 @@ public class SettingsActivity extends AppCompatActivity {
                 if(!prefs.getBoolean(getString(R.string.shared_pref_flag_battery_mode_notice_dismissed), false) && switch_BatterySavingMode.isChecked()) {
                     showBatteryModeInfoDialog();
                 }
-                editor.putBoolean(getString(R.string.shared_pref_setting_battery_saving_mode), switch_BatterySavingMode.isChecked());
-                editor.apply();
+                prefs.edit().putBoolean(getString(R.string.shared_pref_setting_battery_saving_mode), switch_BatterySavingMode.isChecked()).apply();
             }
         });
     }
 
     private void setup_Switch_ShowSettingsButton() {
-        switch_ShowSettingsButton = (Switch) findViewById(R.id.switch_ShowSettingsButton);
+        Switch switch_ShowSettingsButton = (Switch) findViewById(R.id.switch_ShowSettingsButton);
         switch_ShowSettingsButton.setChecked(prefs.getBoolean(getString(R.string.shared_pref_setting_show_settings_button), true));
         switch_ShowSettingsButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                editor.putBoolean(getString(R.string.shared_pref_setting_show_settings_button), b);
-                editor.apply();
+                prefs.edit().putBoolean(getString(R.string.shared_pref_setting_show_settings_button), b).apply();
                 updateWidget();
             }
         });
@@ -214,7 +206,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setup_Switch_ShowDistance() {
         linearLayout_Format = (LinearLayout) findViewById(R.id.textView_Format);
-        switch_ShowDistance = (Switch) findViewById(R.id.switch_ShowDistance);
+        Switch switch_ShowDistance = (Switch) findViewById(R.id.switch_ShowDistance);
 
         switch_ShowDistance.setChecked(prefs.getBoolean(getString(R.string.shared_pref_setting_show_distance), false));
         if(!switch_ShowDistance.isChecked()){
@@ -234,8 +226,7 @@ public class SettingsActivity extends AppCompatActivity {
                     linearLayout_Format.setVisibility(View.GONE);
                     divider.setVisibility(View.GONE);
                 }
-                editor.putBoolean(getString(R.string.shared_pref_setting_show_distance), b);
-                editor.apply();
+                prefs.edit().putBoolean(getString(R.string.shared_pref_setting_show_distance), b).apply();
 
                 Intent intentSendDistanceToWidget = new Intent(SettingsActivity.this, WidgetProvider.class);
                 intentSendDistanceToWidget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
@@ -249,7 +240,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setup_Slider_WidgetDuration() {
         textView_SeekBarDescription = (TextView) findViewById(R.id.textView_SeekBarDescription);
-        seekBar_WidgetDuration = (SeekBar) findViewById(R.id.seekBar_widget_duration);
+        SeekBar seekBar_WidgetDuration = (SeekBar) findViewById(R.id.seekBar_widget_duration);
 
         int widgetUpdateDuration = prefs.getInt(getString(R.string.shared_pref_setting_widget_update_duration), 5);
 
@@ -270,8 +261,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                editor.putInt(getString(R.string.shared_pref_setting_widget_update_duration), seekBar.getProgress() + 1);
-                editor.apply();
+                prefs.edit().putInt(getString(R.string.shared_pref_setting_widget_update_duration), seekBar.getProgress() + 1).apply();
             }
         });
     }
@@ -291,7 +281,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        textView_WhichLocation_Description = (TextView) findViewById(R.id.textView_WhichLocation_Description);
+        TextView textView_WhichLocation_Description = (TextView) findViewById(R.id.textView_WhichLocation_Description);
         textView_WhichLocation_Description.setText(usedLocation);
     }
 
@@ -301,8 +291,7 @@ public class SettingsActivity extends AppCompatActivity {
         builder.setSingleChoiceItems(getResources().getStringArray(R.array.settings_format_options), prefs.getInt(getString(R.string.shared_pref_setting_format), 0), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                editor.putInt(getString(R.string.shared_pref_setting_format), which);
-                editor.apply();
+                prefs.edit().putInt(getString(R.string.shared_pref_setting_format), which).apply();
 
                 Intent intentSendDistanceToWidget = new Intent(SettingsActivity.this, WidgetProvider.class);
                 intentSendDistanceToWidget.setAction(AppWidgetManager.EXTRA_CUSTOM_EXTRAS);
@@ -356,8 +345,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 @Override
                                 public void onAnimationEnd(Animator animator) {
                                     linearLayout.removeView(card);
-                                    editor.putBoolean(getString(R.string.shared_pref_flag_notice_dismissed) + "_" + cardType, true);
-                                    editor.apply();
+                                    prefs.edit().putBoolean(getString(R.string.shared_pref_flag_notice_dismissed) + "_" + cardType, true).apply();
                                 }
                             });
                     return true;

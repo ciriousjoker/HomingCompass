@@ -87,26 +87,31 @@ public class IntroActivity extends AppCompatActivity {
         final LinearLayout step2 = (LinearLayout) findViewById(R.id.linearLayout_Intro_Step_2);
         final LinearLayout step3 = (LinearLayout) findViewById(R.id.linearLayout_Intro_Step_3);
         final LinearLayout step4 = (LinearLayout) findViewById(R.id.linearLayout_Intro_Step_4);
+        final Button step5 = (Button) findViewById(R.id.buttonIntroFinish);
 
         step1.setAlpha(0);
         step2.setAlpha(0);
         step3.setAlpha(0);
         step4.setAlpha(0);
+        step5.setAlpha(0);
 
         ValueAnimator animator_step1 = ValueAnimator.ofFloat(0.0f, 1.0f).setDuration(FADE_DURATION);
         ValueAnimator animator_step2 = ValueAnimator.ofFloat(0.0f, 1.0f).setDuration(FADE_DURATION);
         ValueAnimator animator_step3 = ValueAnimator.ofFloat(0.0f, 1.0f).setDuration(FADE_DURATION);
         ValueAnimator animator_step4 = ValueAnimator.ofFloat(0.0f, 1.0f).setDuration(FADE_DURATION);
+        ValueAnimator animator_step5 = ValueAnimator.ofFloat(0.0f, 1.0f).setDuration(FADE_DURATION);
 
         animator_step1.setStartDelay(FADE_DELAY);
         animator_step2.setStartDelay(FADE_DELAY * 2);
         animator_step3.setStartDelay(FADE_DELAY * 3);
         animator_step4.setStartDelay(FADE_DELAY * 4);
+        animator_step5.setStartDelay(FADE_DELAY * 5);
 
         animator_step1.setInterpolator(new AccelerateDecelerateInterpolator());
         animator_step2.setInterpolator(new AccelerateDecelerateInterpolator());
         animator_step3.setInterpolator(new AccelerateDecelerateInterpolator());
         animator_step4.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator_step5.setInterpolator(new AccelerateDecelerateInterpolator());
 
         animator_step1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -136,11 +141,18 @@ public class IntroActivity extends AppCompatActivity {
             }
         });
 
+        animator_step5.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                step5.setAlpha((float) animation.getAnimatedValue());
+            }
+        });
 
         animator_step1.start();
         animator_step2.start();
         animator_step3.start();
         animator_step4.start();
+        animator_step5.start();
     }
 
     @Override

@@ -43,4 +43,6 @@
     <string name="button_dont_show_again">Nicht erneut anzeigen</string>
     <string name="maps_dialog_tutorial">Tippe lange auf die Karte, um einen Ort festzulegen und gehe zurück, um den Ort zu speichern.</string>
     <string name="settings_dialog_battery_mode">Im Energiesparmodus wird die GPS Position nur einmal zu Beginn ermittelt anstatt die Position alle 5 Sekunden zu aktualisieren. Deaktiviere diese Option, wenn sich die App komisch verhält.</string>
+    <string name="notice_nothing_to_save">Tippe lange auf die Karte, um einen Ort festzulegen!</string>
+    <string name="menu_about">Über</string>
 </resources>
